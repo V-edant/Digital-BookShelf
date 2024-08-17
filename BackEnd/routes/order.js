@@ -13,17 +13,17 @@ router.post("/place-order", authenticateToken, async (req, res) => {
         const { id } = req.headers;
         const { order } = req.body;
 
-        for (const orderData of order) {
+        for (const orderData of order) {                                                                                                                            //jo orderdata hai postman me usme se har ek object ko lera hai or ek naya order-instance crrearte kkrra hai taki naya order creae ho jaye db me
             const newOrder = new Order({ user: id, book: orderData._id });
             const orderDataFromDb = await newOrder.save();
 
             // Saving order in user model
-            await User.findByIdAndUpdate(id, {
+            await User.findByIdAndUpdate(id, {                                                                                                           //jo model ke andat jo user.js hai usme order wale array ko iupdate kkra hai
                 $push: { orders: orderDataFromDb._id },
             });
 
             // Clearing cart
-            await User.findByIdAndUpdate(id, {
+            await User.findByIdAndUpdate(id, {                                                                                                      //ek baar order place hjo gya toh remove cart
                 $pull: { cart: orderData._id },
             });
         }
@@ -62,7 +62,7 @@ router.get("/get-order-history", authenticateToken, async (req, res) => {
 });
 
 
-//grt all order by admin
+//get all order by admin
 router.get("/get-all-orders", authenticateToken, async (req, res) => {
     try {
         const userData = await Order.find()
@@ -70,7 +70,7 @@ router.get("/get-all-orders", authenticateToken, async (req, res) => {
             path : "book",
         })
         .populate({
-            path : "user", //so admin could know which user it is
+            path : "user",                                                                                                                                      //so admin could know which user it is
         })
         .sort({ createdAt : -1})
         return res.json ({

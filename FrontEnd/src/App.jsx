@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import Home from "./pages/home"  // Importing Home component with a capital H
+import Home from "./pages/home"                                                                                                      // Importing Home component with a capital H
 import Navbar from "./components/Navbar/Navbar"
 import Footer from "./components/Footer/Footer"
 import{ Routes, Route} from "react-router-dom"
@@ -11,10 +11,11 @@ import Profile from "./pages/Profile"
 import ViewBookDetails from "./components/ViewBookDetails/ViewBookDetails"
 import { useDispatch,useSelector } from "react-redux"
 import { authActions } from "./store/auth"
+import Favourites from "./components/Profile/Favourites"
+import UserOrderHistory from "./components/Profile/UserOrderHistory"
+import Settings from "./components/Profile/Settings"
 const App = () => {
-  //w were having a problem that when user were logged in and we refreshed the page the login and signup page were back again altough the user was stilled logged in and this should not been shown so we are doinf this to handle it
- 
-  const dispatch = useDispatch()
+const dispatch = useDispatch()
   const role = useSelector((state) => state.auth.role)
   useEffect(() => {
     if(
@@ -35,7 +36,11 @@ return (
                 <Route exact path = "/" element = { <Home />} />
                 <Route  path = "/all-books" element = { <AllBooks />} />
                 <Route  path = "/cart" element = { <Cart />} />
-                <Route  path = "/profile" element = { <Profile />} />
+                <Route  path = "/profile" element = { <Profile />} >
+                <Route index element={<Favourites />} /> 
+                <Route path="/profile/orderHistory" element={<UserOrderHistory />} /> 
+                <Route path="/profile/settings" element={<Settings />} /> 
+                 </Route>
                 <Route  path = "/Login" element = { <Login />} />
                 <Route  path = "/SignUp" element = { <SignUp />} />
                 <Route path = "view-book-details/:id" element = {<ViewBookDetails />}/>
@@ -46,7 +51,8 @@ return (
       
       
     </div>
-  )
+  )// AT LINE 40 //here we can define multiple routes herer and also index here ttell that by-default where you will go i.e directly to the Favourites
+  //AT LINE 42 inki madat se yeh hoora hai ki jo side bar banaya hai waha pr jo favourites and order history ahi jb uspe click karoge toh page toh wohi rahega bss profile se directly aap favourites ya order history pe re-direct ho jaoge
 }
 
 export default App

@@ -42,7 +42,7 @@ router.put("/remove-book-from-favourite", authenticateToken, async (req,res) => 
 router.get("/get-favourite-books", authenticateToken, async (req,res) => {
     try{
     const { id} = req.headers;
-    const userData = await User.findById(id).populate("favourites")// populate gere will give all details of book like price wagera but agar ham populatre nause kre toh sirf hame status success dega or data ke andar hame sirf id hi dega
+    const userData = await User.findById(id).populate("favourites")                                                                                     // populate gere will give all details of book like price wagera but agar ham populatre nause kre toh sirf hame status success dega or data ke andar hame sirf id hi dega
     const favouriteBooks = userData.favourites
     return res.json ({status: "Success" , data :favouriteBooks, })
     

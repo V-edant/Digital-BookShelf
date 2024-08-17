@@ -1,17 +1,6 @@
-// const mongoose = require ("mongoose");
-// const user = new mongoose.Schema,{(
-//     username: {
-//         type:String,
-//         required:true,
-//     },
-// )};
-
-
-
-
 const mongoose = require("mongoose");
 
-const user = new mongoose.Schema({
+const user = new mongoose.Schema({ //user wo hai jo register kr rha hai, jab bhi db me operation  perform hoga toh wo is model ke reference ke through hopha
   username: {
     type: String,
     required: true,

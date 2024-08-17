@@ -24,9 +24,9 @@ const Navbar = () => {
     ];
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
     if(isLoggedIn === false){
-        links.splice(2,2)
+        links.splice(2,2) // If the user is not logged in (isLoggedIn === false), the links array is modified to remove the "Cart" and "Profile" links.
     }
-    const [MobileNav, setMobileNav] = useState("hidden");
+    const [MobileNav, setMobileNav] = useState("hidden"); //MobileNav is a state variable that controls the visibility of the mobile navigation menu. Initially, it is set to "hidden".
 
     return (
         <>

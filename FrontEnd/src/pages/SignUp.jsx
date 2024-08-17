@@ -45,7 +45,7 @@ const navigate = useNavigate()
               onChange={change}
             />
           </div>
-          <div className='mt-4'>
+            <div className='mt-4'>
             <label htmlFor="" className='text-zinc-400'>Email</label>
             <input 
               type="text" 

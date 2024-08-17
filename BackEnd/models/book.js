@@ -1,7 +1,7 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose") //importing mongoose mongoose is an library jo ham bolte hai vhi mmongodb me bnadeta hai
 const book = new mongoose.Schema(
     {
-        url:{
+        url:{ // url of img
             type:String,
             required: true,
 
