@@ -6,8 +6,11 @@ import{authActions} from "../../store/auth"
 
 
 const Sidebar = ({data}) => {
+  const dispatch = useDispatch()
+  const history = useNavigate()
+  const role = useSelector((state) => state.auth.role)
   return (
-    <div className='bg-zinc-800 p-4 rounded flex flex-col items-center justify-between h-auto lg:h-[100%]'>
+    <div className='bg-zinc-800 p-4 rounded flex flex-col items-center h-auto lg:h-[100%]'>
         <div className='flex items-center flex-col justify-center'> {" "}
         <img src={"https://cdn-icons-png.flaticon.com/128/3177/3177440.png"} className='h-[12vh]' />
 
@@ -19,27 +22,42 @@ const Sidebar = ({data}) => {
        </p>
        <div className='w-full mt-4 h-[1px] bg-zinc-500 hidden lg:block' ></div>
         </div>
-   
-        <div className=' w-full flex-col items-center justify-center hidden lg:flex '>
+
+      {role === "user" &&  ( <div className=' w-full flex-col  items-center justify-center hidden lg:flex '>
           <Link to = "/profile"
-          className = "text-zinc-100 font-semibold w-full py-2 text-center hover:bg-zinc-900 rounded transition-all duration-300 m-10" >
+          className = "text-zinc-100  mt-20 font-semibold w-full hover:scale-[110%] transition-transform  py-2 text-center hover:bg-zinc-900 rounded transition-all duration-300 m-5" >
 
             Favourites
             </Link>
             <Link to = "/profile/orderHistory"
-            className = "text-zinc-100 font-semibold w-full py-2 mt-4 text-center hover:bg-zinc-900 rounded transition-all duration-300 m-10" 
+            className = "text-zinc-100 font-semibold w-full py-2 mt-4 hover:scale-[110%] transition-transform  text-center hover:bg-zinc-900 rounded transition-all duration-300 m-5" 
 
 
             >
                Order History
             </Link>
             <Link to = "/profile/settings"
-            className = "text-zinc-100 font-semibold w-full py-2 mt-4 text-center hover:bg-zinc-900 rounded transition-all duration-300 m-10" 
+            className = "text-zinc-100 font-semibold mb-20 w-full hover:scale-[110%] transition-transform  py-2 mt-4 text-center hover:bg-zinc-900 rounded transition-all duration-300 m-5" 
             >
               Settings
               </Link>
-        </div>
-     <button className='bg-zinc-900 rounded-full w-3/6 lg:w-full mt-4 lg:mt-0 text-white font-semibold flex items-center justify-center py-2 hover:bg-white hover:text-zinc-900 transition-all duration-300 hover:scale-[110%] ' 
+        </div>)}
+       {role === "admin" && ( <div className=' w-full flex-col items-center justify-center hidden lg:flex '>
+          <Link to = "/profile"
+          className = "text-zinc-100 font-semibold w-full py-2 hover:scale-[110%] text-center hover:bg-zinc-900 rounded transition-all duration-300 m-10" >
+
+            All Orders
+            </Link>
+            <Link to = "/profile/add-book"
+            className = "text-zinc-100 font-semibold w-full py-2 hover:scale-[110%] mt-4 text-center hover:bg-zinc-900 rounded transition-all duration-300 m-10" 
+
+
+            >
+               Add Books
+            </Link>
+            
+        </div>)}
+      <button className='bg-zinc-900 rounded-full w-3/6 lg:w-full mt-4 lg:mt-0 text-white font-semibold flex items-center justify-center py-2 hover:bg-white hover:text-zinc-900 transition-all duration-300 hover:scale-[110%] ' 
       onClick={() => {
         dispatch(authActions.logout())
         dispatch(authActions.changeRole("user"))
@@ -53,7 +71,6 @@ const Sidebar = ({data}) => {
 
 
       </button>
-
 
         </div>
   )
