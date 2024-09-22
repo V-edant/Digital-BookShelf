@@ -30,7 +30,7 @@ const AddBook = () => {
                 ){
                     alert("All feilds are required")
                 } else{
-                    const response = await axios.post("http://localhost:1000/api/v1/add-book",
+                    const response = await axios.post("https://digital-bookshelf.onrender.com/api/v1/add-book",
                         Data,
                         {headers}
                     )

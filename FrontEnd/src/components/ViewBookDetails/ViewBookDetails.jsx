@@ -20,7 +20,7 @@ const ViewDataDetails = () => {
   //  console.log(isLoggedIn, role)
    useEffect(() => { 
      const fetch = async() => {
-     const response =  await axios.get(`http://localhost:1000/api/v1/get-book-by-id/${id}`)
+     const response =  await axios.get(`https://digital-bookshelf.onrender.com/api/v1/get-book-by-id/${id}`)
     
      setData(response.data.data)
       }
@@ -34,15 +34,15 @@ const ViewDataDetails = () => {
     
     }
      const handleFavourite = async() => {
-     const response =  await axios.put("http://localhost:1000/api/v1/add-book-to-favourite" , {}, {headers})
+     const response =  await axios.put("https://digital-bookshelf.onrender.com/api/v1/add-book-to-favourite" , {}, {headers})
      alert(response.data.message)
      }
      const handleCart = async () => {
-    const response = await axios.put("http://localhost:1000/api/v1/add-to-cart" , {}, {headers})
+    const response = await axios.put("https://digital-bookshelf.onrender.com/api/v1/add-to-cart" , {}, {headers})
     alert(response.data.message)
   }
   const deleteBook = async () => {
-  const response =  await axios.delete ("http://localhost:1000/api/v1/delete-book" , {headers})
+  const response =  await axios.delete ("https://digital-bookshelf.onrender.com/api/v1/delete-book" , {headers})
   alert(response.data.message)
   navigate("/all-books")
   }
