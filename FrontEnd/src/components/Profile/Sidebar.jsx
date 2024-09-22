@@ -37,11 +37,21 @@ const Sidebar = ({data}) => {
               Settings
               </Link>
         </div>
-      <button className='bg-zinc-900 w-3/6 lg:w-full mt-4 lg:mt-0 text-white font-semibold flex items-center justify-center py-2 hover:bg-white hover:text-zinc-900 transition-all duration-300 '>
-      Log Out <FaArrowRightFromBracket className = "ms-4" />
+     <button className='bg-zinc-900 rounded-full w-3/6 lg:w-full mt-4 lg:mt-0 text-white font-semibold flex items-center justify-center py-2 hover:bg-white hover:text-zinc-900 transition-all duration-300 hover:scale-[110%] ' 
+      onClick={() => {
+        dispatch(authActions.logout())
+        dispatch(authActions.changeRole("user"))
+        localStorage.clear("id")
+        localStorage.clear("token")
+        localStorage.clear("role")
+        history("/")
+
+      }}>
+      Log Out <FaArrowRightFromBracket className = " transform transition-transform duration-200 hover:scale-125 ms-4" />
 
 
       </button>
+
 
         </div>
   )
