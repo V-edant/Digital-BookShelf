@@ -17,7 +17,7 @@ const Settings = () => {
 
   useEffect(() => {
     const fetch = async () => {
-   const response = await axios.get("https://digital-bookshelf.onrender.com/api/v1/get-user-information",{headers}
+   const response = await axios.get("http://localhost:1000/api/v1/get-user-information",{headers}
    )
    setProfileData(response.data)
    setValue({ address: response.data.address})// address change ho ssakta hai isloye naya adddress isse update ho jayega
@@ -26,7 +26,7 @@ const Settings = () => {
    }, [])
 
    const submitAddress = async() => {
-    const response = await axios.put("https://digital-bookshelf.onrender.com/api/v1/update-address", Value , {headers})
+    const response = await axios.put("http://localhost:1000/api/v1/update-address", Value , {headers})
     alert(response.data.message)
    }
    //we can change ONLY ADDRESS FOR user settings 

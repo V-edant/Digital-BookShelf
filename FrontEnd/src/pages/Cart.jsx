@@ -15,7 +15,7 @@ const Cart = () => {
 }
  useEffect(() => {
   const fetch = async () => {
-    const res = await axios.get("https://digital-bookshelf.onrender.com/api/v1/get-user-cart",
+    const res = await axios.get("http://localhost:1000/api/v1/get-user-cart",
       {headers}
     )
     setCart(res.data.data)
@@ -24,7 +24,7 @@ const Cart = () => {
  }, [Cart]) 
  const deleteItems = async (bookid) => {
 const response  = await axios.put(
-  `https://digital-bookshelf.onrender.com/api/v1/remove-from-cart/${bookid}`, {},{headers})
+  `http://localhost:1000/api/v1/remove-from-cart/${bookid}`, {},{headers})
   alert(response.data.message)
  }
 //  Total order price
@@ -42,7 +42,7 @@ const response  = await axios.put(
  const PlaceOrder = async () => {
   try{
     const response = await axios.post(
-      `https://digital-bookshelf.onrender.com/api/v1/place-order`, {order : Cart},{headers}
+      `http://localhost:1000/api/v1/place-order`, {order : Cart},{headers}
     )
     alert(response.data.message)
     Navigate("/profile/orderHistory")
@@ -51,14 +51,14 @@ const response  = await axios.put(
   }
  }
 return (
-  <div className='bg-zinc-900 px-12 h-screen py-8'>
+  <div className='min-h-screen bg-zinc-900 px-12 py-8'>
   {!Cart &&
-  <div className='w-full h-[100%] flex items-center justify-center'> <Loader /> </div>}
+  <div className='w-full  flex items-center justify-center'> <Loader /> </div>}
 
 {Cart && Cart.length === 0 && (
-  <div className='h-screen'>
-    <div className='h-[100% ] flex items-center justify-center flex-col'>
-      <h1 className='tex-5xl lg:text-6xl font-semibold text-zinc-400 mt-12'>
+  <div className='h-full'>
+    <div className='h-full flex items-center justify-center flex-col'>
+      <h1 className='text-5xl lg:text-6xl font-semibold text-zinc-400 mt-12'>
         Empty Cart!
       </h1>
       <img src="./empty-cart.png" alt="empty cart" className=" lg:h-[50vh] mt-12" />
@@ -72,31 +72,32 @@ return (
   </h1>
   
   {Cart.map((items,i )=> (
-    <div className='w-full my-4 rounded flex flex-col md:flex-row bg-zinc-800 justify-between items-center'
+    <div className='w-full my-4 pr-2 rounded flex flex-col md:flex-row bg-zinc-800 justify-start items-center '
     key={i}
     >
     <img
-       src={items.url} alt="/" className='h-[20vh] md:h-[15vh] object cover' 
+       src={items.url} alt="/" className=' transition-all transition:300 hover:scale-[111%] hover:rounded-2xl h-[20vh] md:h-[25vh] object-cover' 
        />
-       <div className='w-full md:w-auto'>
-        <h1 className='text-2xl text-zinc-100 font-semibold text-start mt-2 md:mt-0'>
+       <div className='w-full  md:w-auto'>
+        <h1 className='text-3xl text-zinc-100 font-semibold text-left mt-2 md:mt-0 px-[8%]'>
           {items.title}
         </h1>
-        <p className='text-normal text-zinc-300 mt-2 hidden lg:block '>
+        <p className='text-normal pr-2 text-zinc-300 px-9 mt-9 hidden lg:block '>
           {items.desc.slice(0, 100)}...
         </p>
-        <p className='text-normal text-zinc-300 mt-2 hidden md:block lg:hidden '>
-          {items.desc.slice(0, 65)}...
+        <p className='text-normal text-zinc-300 pr-2  mt-2 hidden md:block lg:hidden '>
+          {items.desc.slice(0, 60)}...
         </p>
-        <p className='text-normal text-zinc-300 mt-2 block md:hidden'>
+        <p className='text-normal text-zinc-300 pr-2 mt-2 block md:hidden'>
           {items.desc.slice(0, 100)}...
         </p>
        </div>
-      <div className='flex mt-4 w-full md:w-auto items-center justify-between'>
-        <h2 className='text-zinc-100 text-3xl font-semibold flex'>
-        ₹ {items.price}</h2>
+      <div className='flex items-center mt-4 h-[100%] w-full md:w-auto pr-0  '>
+        <h2 className=' flex items-center  text-zinc-100 text-3xl font-semibold  px-[60%]'>
+        <span className='mr-2 '>₹ </span>{items.price}/-
+        </h2>
 
-        <button className='bg-red-100 text-xl text-red-700 border border-red-700 rounded p-2 ms-12 mr-2'
+        <button className='bg-red-100  text-3xl text-red-700 border border-red-700 rounded p-2 ms-12 mr-2 hover:scale-[125%]'
         onClick={() => deleteItems(items._id)}>
       
       <TbHttpDelete />
@@ -107,12 +108,12 @@ return (
   </>
 )}
   {Cart && Cart.length> 0 && (
-    <div className='mt-10 w-full flex items-center justify-end'>
-      <div className='p-4 bg-zinc-800 rounded'>
+    <div className='mt-10 w-full  flex items-center justify-end'>
+      <div className='p-4 bg-zinc-800  rounded'>
         <h1 className='text-3xl text-zinc-200 font-semibold'>
           Total Amount
         </h1>
-        <div className='mt-3 flex items-center justify-between text-xl text-zinc-200'>
+        <div className='mt-3 flex items-center  justify-between text-xl text-zinc-200'>
           <h2>{Cart.length} Books </h2> <h2> ₹  {Total} /- </h2>
         </div>
 

@@ -11,7 +11,7 @@ const UserOrderHistory = () => {
   }
   useEffect(() => {
     const fetch = async () => {
-    const response =   await axios.get ("https://digital-bookshelf.onrender.com/api/v1/get-order-history" , 
+    const response =   await axios.get ("http://localhost:1000/api/v1/get-order-history" , 
       {headers})
       setOrderHistory(response.data.data)
     }
@@ -32,17 +32,17 @@ const UserOrderHistory = () => {
     )}
 
     {OrderHistory && OrderHistory.length > 0 && (
-      <div className='h-[100%] p-0 md:p-4 text-zinc-100'>
-        <h1 className='text-3xl md:text-5xl font-semibold text-zinc-500 mb-8'>
-          Your Order History
+      <div className='h-[100%] p-0 md:p-4 text-zinc-100   '>
+        <h1 className='text-3xl md:text-5xl font-semibold  text-zinc-500 mb-8'>
+          Your Order History...
         </h1>
 
-        <div className='mt-4 bg-zinc-800 w-full rounded py-2 px-4 flex gap-2'>
-        <div className='w-[3%]'>
+        <div className='mt-4 bg-zinc-800 w-full rounded py-2 px-4  flex gap-4 mb-2 '>
+        <div className='w-[3%] '>
         <h1 className='text-center'> Sr. </h1>
         </div>
 
-        <div className='w-[22%]'>
+        <div className='w-[22%] '>
         <h1 className=''> Books </h1>   
         </div>
 
@@ -67,7 +67,7 @@ const UserOrderHistory = () => {
         </div>
 
         {OrderHistory.map((items, i) => (
-          <div className='bg-zinc-800 w-full rounded py-2 px-4 flex gap-4 hover:bg-zinc-900 hover:cursor-pointer'>
+          <div className='bg-zinc-800 mb-2 w-full rounded py-2 px-4 flex gap-4  hover:scale-[105%] transition-transform hover:bg-zinc-900 hover:cursor-pointer'>
             <div className='w-[3%]'>
         <h1 className='text-center'> {i+1} </h1>
         </div>
@@ -87,7 +87,7 @@ const UserOrderHistory = () => {
 
 
         <div className='w-[9%]'>
-        <h1 className=''> ₹ {items.book.price} </h1>   
+        <h1 className=''> ₹ {items.book.price} /- </h1>   
         </div>
 
 

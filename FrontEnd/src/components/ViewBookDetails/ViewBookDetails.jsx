@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react'
 import axios from "axios" //this hells to getch data from the backend
 import Loader from '../Loader/Loader'
-import { useParams } from 'react-router-dom'
+import {Link, useNavigate, useParams } from 'react-router-dom'
 import { GrLanguage } from 'react-icons/gr';
 import { RiHeartAdd2Fill } from "react-icons/ri";
 import { TbShoppingCartHeart } from "react-icons/tb";
@@ -12,6 +12,7 @@ import { MdOutlineDeleteOutline } from "react-icons/md";
 
 const ViewDataDetails = () => {
    const {id} =  useParams()
+   const navigate = useNavigate()
 
    const [Data, setData] = useState()
    const isLoggedIn = useSelector((state) => state.auth.isLoggedIn)
@@ -19,7 +20,7 @@ const ViewDataDetails = () => {
   //  console.log(isLoggedIn, role)
    useEffect(() => { 
      const fetch = async() => {
-     const response =  await axios.get(`https://digital-bookshelf.onrender.com/api/v1/get-book-by-id/${id}`)
+     const response =  await axios.get(`http://localhost:1000/api/v1/get-book-by-id/${id}`)
     
      setData(response.data.data)
       }
@@ -33,12 +34,17 @@ const ViewDataDetails = () => {
     
     }
      const handleFavourite = async() => {
-     const response =  await axios.put("https://digital-bookshelf.onrender.com/api/v1/add-book-to-favourite" , {}, {headers})
+     const response =  await axios.put("http://localhost:1000/api/v1/add-book-to-favourite" , {}, {headers})
      alert(response.data.message)
      }
      const handleCart = async () => {
-    const response = await axios.put("https://digital-bookshelf.onrender.com/api/v1/add-to-cart" , {}, {headers})
+    const response = await axios.put("http://localhost:1000/api/v1/add-to-cart" , {}, {headers})
     alert(response.data.message)
+  }
+  const deleteBook = async () => {
+  const response =  await axios.delete ("http://localhost:1000/api/v1/delete-book" , {headers})
+  alert(response.data.message)
+  navigate("/all-books")
   }
   return (
    <> 
@@ -70,10 +76,11 @@ const ViewDataDetails = () => {
 
        {isLoggedIn === true && role === "admin" && (
          <div className='flex flex-col md:flex-row lg:flex-col items-center  justify-between lg:justify-start  mt-4 lg:mt-0 '>
-         <button className='text-white rounded lg:rounded-full text-3xl  p-3  m-4 md:mr-0 transform transition-transform duration-300 hover:scale-110 hover:bg-red-100 flex items-center justify-center'>
+         <Link to = {`/updateBook/${id}`}
+         className='text-white rounded lg:rounded-full text-5xl md:mt-0 bg-white-900 p-3 m-4 mr-1 transform transition-transform duration-300 hover:scale-110 hover:hover:bg-blue-100 hover:text-black hover:scale-110 flex items-center justify-center'>
          <FaUserEdit /> <span className='ms-4 block lg:hidden'>Edit Book</span>
-         </button>
-         <button className='text-red-500 rounded mt-8 md:mt-0  lg:rounded-full text-3xl p-3 bg-white-4 md:mr-0 transform transition-transform duration-300 hover:scale-110 hover:bg-blue-100 flex items-center justify-center'>
+         </Link>
+         <button className='text-red-500 rounded mt-8 md:mt-0  bg-white-600 lg:rounded-full text-5xl p-4 px-5 bg-white-4 md:mr-0 transform transition-transform duration-300 hover:scale-110 hover:bg-blue-100 flex items-center justify-center'onClick={deleteBook}>
          <MdOutlineDeleteOutline /> <span className='ms-4 block lg:hidden'>Delete Book</span>
          </button>
        </div>
